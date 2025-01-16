@@ -6,45 +6,40 @@ import {
   TextInput,
   SafeAreaView,
   Switch,
+  Button,
+  Alert,
 } from "react-native";
-
 import React, { useEffect, useState } from "react";
-const Login = () => {
-  const [name, setName] = useState();
-  const [isDark, setisDark] = useState(false);
-  return (
-    <SafeAreaView style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-        placeHolder="email@email.com"
-        autoCorrect={false}
-        autoCapitalize="none"
-        // secureTextEntry
-        // keyboardType="numeric"
-      />
-      <TextInput
-        style={(styles.input, styles.multiline)}
-        placeHolder="message"
-        multiline
-        // secureTextEntry
-        // keyboardType="numeric"
-      />
-      <Text styles={styles.text}> My name is {name} </Text>
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchText}>Dark Mode </Text>
 
-        <Switch
-          value={isDark}
-          onValueChange={() => {
-            setisDark((isPrevious) => !isPrevious);
-          }}
-          trackColor={{false : "#767577" , true : 'lightblue'}}
-          thumbColor="#f4f3f4"
+const Login = () => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const onSubmit = () => {
+    Alert.alert("Latest Alert");
+  };
+  return (
+    <View style={styles.container}>
+      <View stlye={styles.form}>
+        <Text> </Text>
+        <Text style={styles.label}>UserName</Text>
+        <TextInput
+          style={styles.input}
+          placeHolder="Enter Your Username"
+          value={userName}
+          onChangeText={setUserName}
         />
+        <Text style={styles.username}>{userName}</Text>
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeHolder="Enter Your Password"
+          secureTextEntry
+          value={setPassword}
+        />
+
+        <Button title="Submit" onPress={onSubmit}></Button>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -53,34 +48,38 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "ffff",
-    alignItems: "center",
     justifyContent: "center",
-    paddingTop: StatusBar.currentHeight,
+    alignItems: "center",
+    paddingHorizontal: 20,
+    backgroundColor: "white",
+  },
+  form: {
+    backgroundColor: "black",
+    borderBottomColor: "black",
+    borderColor: "orange",
+    padding: 20,
+    borderRadius: 4,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 100,
+      height: 2,
+    },
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    fontWeight: "bold",
   },
   input: {
     height: 40,
     margin: 12,
-    padding: 12,
-    width: 250,
     borderWidth: 1,
-  },
-  text: {
-    fontSize: 30,
-    padding: 10,
-  },
-  multiline: {
-    fontSize: 30,
     padding: 10,
     width: 250,
-    minHeight: 100,
-    borderWidth: 1,
-    textAlignVertical: "top",
   },
-  switchContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 10,
+  username: {
+    fontSize: 16,
+    marginBottom: 5,
+    fontWeight: "bold",
   },
 });

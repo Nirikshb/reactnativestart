@@ -10,7 +10,7 @@ export default function HomeScreen() {
       <Text style={styles.title}>
         Dummy Home Page
       </Text>
-      <Button title="Go to Main Page" onPress={() => router.push("/profile")} />
+      <Button title="Go to Main Page" onPress={() => router.push("/main")} />
     </View>
   );
 }
