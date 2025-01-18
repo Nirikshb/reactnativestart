@@ -8,8 +8,8 @@ export default function MainScreen() {
   return (
     <SafeAreaView style={styles.container}>
     
-    <Login />
-
+    {/* <Login /> */}
+    <DemoApi />
       {/* <Button title="Go Back to Home" onPress={() => router.push("/")} /> */}
     </SafeAreaView>
   );
@@ -18,8 +18,9 @@ export default function MainScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     // justifyContent: "center",
-    // alignItems: "center",
+    alignItems: "center",
 
   },
   title: {

@@ -1,79 +1,71 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, Image, FlatList, StyleSheet } from "react-native";
-import {Link } from "expo-router";
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Image } from 'react-native';
+import React from 'react';
+import { useEffect, useState } from 'react';
 
 const DemoApi = () => {
-  const [data, setData] = useState([]);
+	const [storeIt, setStoreIt] = useState([]);
+	useEffect(() => {
+		getIt();
+	}, []);
+	const getIt = () => {
+		const url = 'https://fakestoreapi.com/products';
+		fetch(url)
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				setStoreIt(data);
+				// console.log('====================================');
+				// console.log(data);
+				// console.log('====================================');
+			})
+			.catch((err) => {
+				console.log(err, 'err');
+			});
+	};
 
-  const getMovies = async () => {
-    try {
-      const response = await fetch(
-        ""
-      );
-      const json = await response.json();
-      setData(json.data?.data || []);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getMovies();
-  }, []);
-
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <Image
-        source={{ uri: item.metals[0].images.front }}
-        style={styles.image}
-      />
-      <Text style={styles.textline}>{item.title}</Text>
-      {/* <Text>Product Name: {item.metals[0].carats[0].product_name}</Text> */}
-      <Text style={styles.textline}>MRP: {item.metals[0].carats[0].mrp}</Text>
-      <Text style={styles.strike}>{item.metals[0].carats[0].price}</Text>
-      <Link style={styles.strike} href='/pdp/1'>A</Link>
-    </View>
-  );
-
-  return (
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-      numColumns={2}
-      columnWrapperStyle={styles.row}
-    />
-  );
+	return (
+		<View>
+			<Text>My Api Call</Text>
+			<FlatList
+				data={storeIt}
+				keyExtractor={(item) => item.id.toString()}
+				renderItem={({ item }) => (
+					<View key={item.id} style={styles.cardContainer}>
+						<Image source={{ uri: item.image }} style={styles.image} resizeMode="contain" />
+						<Text style={styles.title} numberOfLines={2}>Name: {item.title}</Text>
+						<Text style={styles.price}>Price: ${item.price}</Text>
+					</View>
+				)}
+			/>
+		</View>
+	);
 };
 
-const styles = StyleSheet.create({
-  itemContainer: {
-    flex: 1,
-    margin: 8,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#cccc",
-    backgroundColor: "white",
-    borderRadius: 10,
-    textAlign: "center",
-
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
-  image: {
-    width: 100,
-    height: 100,
-    marginBottom: 8,
-  },
-  strike: {
-    textDecorationLine: "line-through",
-  },
-  row: {
-    // justifyContent: 'space-between',
-  },
-  textline: {
-    marginBottom: 4,
-  },
-});
-
 export default DemoApi;
+
+const styles = StyleSheet.create({
+	cardContainer: {
+		backgroundColor: '#c4c4c4',
+		borderRadius: 10,
+		padding: 20,
+		alignItems: 'center',
+		justifyContent: 'center',
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 0.2 },
+		shadowOpacity: 0.2
+	},
+	image: {
+		width: 150,
+		height: 150,
+		marginBottom: 10
+	},
+	errorStyle: {
+		color: 'red',
+		fontSize: 18
+	},
+	title : {
+		textAlign : 'center',
+		
+	}
+});

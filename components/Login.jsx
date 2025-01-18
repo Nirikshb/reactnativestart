@@ -28,12 +28,21 @@ const Login = () => {
 			errors.userName = 'user name required';
 		}
 		if (!password) {
-			errors.password = 'user name required';
+			errors.password = 'password name required';
 		}
 
 		setErrors(errors);
 
 		return Object.keys(errors)?.length === 0;
+	};
+
+	const handleSubmit = () => {
+		if (validateForm()) {
+			console.log('submit', 'userName');
+			setUserName('');
+			setPassword('');
+			setErrors({});
+		}
 	};
 	return (
 		<KeyboardAvoidingView
@@ -49,7 +58,7 @@ const Login = () => {
 					placeHolder="Enter Your Username"
 					value={userName}
 					onChangeText={setUserName}
-				/>
+				></TextInput>
 				{errors.userName ? <Text style={styles.errorText}>{errors.userName}</Text> : null}
 				<Text style={styles.username}>{userName}</Text>
 				<Text style={styles.label}>Password</Text>
@@ -58,9 +67,9 @@ const Login = () => {
 					placeHolder="Enter Your Password"
 					secureTextEntry
 					value={setPassword}
-				/>
+				></TextInput>
 				{errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
-				<Button title="Submit" onPress={validateForm}></Button>
+				<Button title="Submit" onPress={handleSubmit}></Button>
 			</View>
 		</KeyboardAvoidingView>
 	);
@@ -82,14 +91,14 @@ const styles = StyleSheet.create({
 		// height: 70,
 		// padding: 80,
 		backgroundColor: 'rgba(195, 255, 14, 0.62)',
-		shadowColor: '#000', // Color of the shadow
+		shadowColor: '#000',
 		shadowOffset: {
-			width: -26, // Horizontal offset
-			height: -14 // Vertical offset
+			width: -26,
+			height: -14
 		},
-		shadowOpacity: 0.62, // Opacity of the shadow
-		shadowRadius: 20, // Radius of the blur effect
-		elevation: 8 // For Android shadows
+		shadowOpacity: 0.62,
+		shadowRadius: 20,
+		elevation: 8
 	},
 
 	label: {
