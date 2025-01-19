@@ -2,6 +2,7 @@ import { View, Text, Button, StyleSheet, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
 import DemoApi from '../components/DemoApi';
 import Login from '../components/Login';
+import TodoApp from "../components/TodoApp";
 export default function MainScreen() {
   const router = useRouter();
 
@@ -9,7 +10,8 @@ export default function MainScreen() {
     <SafeAreaView style={styles.container}>
     
     {/* <Login /> */}
-    <DemoApi />
+    {/* <DemoApi /> */}
+    <TodoApp />
       {/* <Button title="Go Back to Home" onPress={() => router.push("/")} /> */}
     </SafeAreaView>
   );
