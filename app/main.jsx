@@ -3,6 +3,8 @@ import { useRouter } from "expo-router";
 import DemoApi from '../components/DemoApi';
 import Login from '../components/Login';
 import TodoApp from "../components/TodoApp";
+import Weather from "../components/weatherApp/Weather";
+
 export default function MainScreen() {
   const router = useRouter();
 
@@ -11,8 +13,10 @@ export default function MainScreen() {
     
     {/* <Login /> */}
     {/* <DemoApi /> */}
-    <TodoApp />
-      {/* <Button title="Go Back to Home" onPress={() => router.push("/")} /> */}
+    {/* <TodoApp /> */}
+    <Weather />
+
+      <Button title="Go Back to Home" onPress={() => router.push("/")} />
     </SafeAreaView>
   );
 }
