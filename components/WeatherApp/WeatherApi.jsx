@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
-const WeatherApi = () => {
-	const [weather, setWeather] = useState(null); 
-    
+const WeatherApi = ({ registerFunction, ...props }) => {
+	console.log(registerFunction, 'fetchWeather');
+
+	const [weather, setWeather] = useState(null);
+
 	const API_URL =
-		'https://api.openweathermap.org/data/2.5/weather?lat=19.0760&lon=72.8777&appid=0fb50a5969db8bc052b18a71aa77d567';
+		// 'https://api.openweathermap.org/data/2.5/weather?lat=19.0760&lon=72.8777&appid=0fb50a5969db8bc052b18a71aa77d567';
+		`https://api.openweathermap.org/data/2.5/weather?lat=${props?.searchLat}&lon=${props?.searchLong}&appid=0fb50a5969db8bc052b18a71aa77d567`;
 
 	useEffect(() => {
 		fetchWeather();
@@ -41,14 +44,23 @@ const WeatherApi = () => {
 
 	return (
 		<ScrollView style={styles.container}>
+			{/* <Text>{props.searchLat}</Text>
+			<Text>{props.searchLong}</Text> */}
 			<Text style={styles.header}>Weather Data</Text>
-			<Text style={styles.item}>Name: {weather.name}</Text>
-			<Text style={styles.item}>Country: {weather.sys.country}</Text>
-			<Text style={styles.item}>Temperature: {weather.main.temp} K</Text>
-			<Text style={styles.item}>Feels Like: {weather.main.feels_like} K</Text>
-			<Text style={styles.item}>Weather: {weather.weather[0].description}</Text>
-			<Text style={styles.item}>Visibility: {weather.visibility} meters</Text>
-			<Text style={styles.item}>Wind Speed: {weather.wind.speed} m/s</Text>
+			{/* <Text>{weather && <Text>WEATHER DATA CHECK</Text>}</Text> */}
+			{weather ? (
+				<View>
+					<Text style={styles.item}>Name: {weather?.name || 'N/A'}</Text>
+					<Text style={styles.item}>Country: {weather?.sys?.country || 'N/A'}</Text>
+					<Text style={styles.item}>Temperature: {weather?.main?.temp || 'N/A'} K</Text>
+					<Text style={styles.item}>Feels Like: {weather?.main?.feels_like || 'N/A'} K</Text>
+					<Text style={styles.item}>Weather: {weather?.weather?.[0]?.description || 'N/A'}</Text>
+					<Text style={styles.item}>Visibility: {weather?.visibility || 'N/A'} meters</Text>
+					<Text style={styles.item}>Wind Speed: {weather?.wind?.speed || 'N/A'} m/s</Text>
+				</View>
+			) : (
+				<Text>No Value Found</Text>
+			)}
 		</ScrollView>
 	);
 };

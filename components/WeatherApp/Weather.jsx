@@ -1,9 +1,21 @@
 import { View, Text, StyleSheet, TextInput, Pressable, Alert, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import WeatherApi from './WeatherApi';
 
 const Weather = () => {
+	const [searchLat, setSearchLat] = useState('');
+	const [searchLong, setSearchLong] = useState('');
+  let childFunctionRef;
+    // Store the child's function reference
+    const setChildFunction = (func) => {
+      childFunctionRef = func;
+    };
 	const onSearchCity = () => {
+		setSearchLat(searchLat);
+		setSearchLong(searchLong);
+    setChildFunction();
+		// setSearchLat(searchLat)
+		// console.log('====================================', searchCity);
 		// Alert.alert('City Searched');
 		// console.log('search city');
 	};
@@ -14,15 +26,27 @@ const Weather = () => {
 			<View style={styles.mainContainer}>
 				<Text style={styles.label}>Search City</Text>
 
-				<TextInput style={styles.input} placeholder="Search City" />
+				<TextInput
+					style={styles.input}
+					value={searchLat}
+					onChangeText={setSearchLat}
+					placeholder="Search City"
+				/>
+
+				<TextInput
+					style={styles.input}
+					value={searchLong}
+					onChangeText={setSearchLong}
+					placeholder="Search City"
+				/>
 
 				<Pressable style={styles.press} onPress={onSearchCity}>
-					<Text style={styles.pressText}>I'm Pressable!</Text>
+					<Text style={styles.pressText}>Search City!</Text>
 				</Pressable>
 			</View>
 
 			<ScrollView>
-				<WeatherApi />
+				<WeatherApi searchLat={searchLat} searchLong={searchLong} search={{searchLat , searchLong}} registerFunction={setChildFunction}/>
 			</ScrollView>
 		</View>
 	);
