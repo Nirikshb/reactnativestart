@@ -10,18 +10,21 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
-const WeatherApi = ({ registerFunction, ...props }) => {
+const WeatherApi = ({ searchLat, searchLong, triggerApi }) => {
 	console.log(registerFunction, 'fetchWeather');
 
 	const [weather, setWeather] = useState(null);
+	const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${searchLat}&lon=${searchLong}&appid=0fb50a5969db8bc052b18a71aa77d567`;
 
-	const API_URL =
-		// 'https://api.openweathermap.org/data/2.5/weather?lat=19.0760&lon=72.8777&appid=0fb50a5969db8bc052b18a71aa77d567';
-		`https://api.openweathermap.org/data/2.5/weather?lat=${props?.searchLat}&lon=${props?.searchLong}&appid=0fb50a5969db8bc052b18a71aa77d567`;
+	// const API_URL =
+	// 	// 'https://api.openweathermap.org/data/2.5/weather?lat=19.0760&lon=72.8777&appid=0fb50a5969db8bc052b18a71aa77d567';
+	// 	`https://api.openweathermap.org/data/2.5/weather?lat=${props?.searchLat}&lon=${props?.searchLong}&appid=0fb50a5969db8bc052b18a71aa77d567`;
 
-	useEffect(() => {
-		fetchWeather();
-	}, []);
+		useEffect(() => {
+			if (triggerApi) {
+				fetchWeather();
+			}
+		}, [triggerApi, searchLat, searchLong]);
 
 	const fetchWeather = async () => {
 		try {

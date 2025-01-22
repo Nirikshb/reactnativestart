@@ -5,15 +5,13 @@ import WeatherApi from './WeatherApi';
 const Weather = () => {
 	const [searchLat, setSearchLat] = useState('');
 	const [searchLong, setSearchLong] = useState('');
-  let childFunctionRef;
-    // Store the child's function reference
-    const setChildFunction = (func) => {
-      childFunctionRef = func;
-    };
+	const [triggerApi, setTriggerApi] = useState(false);  // Flag to trigger API call in child
+
 	const onSearchCity = () => {
 		setSearchLat(searchLat);
 		setSearchLong(searchLong);
-    setChildFunction();
+    // setChildFunction();
+
 		// setSearchLat(searchLat)
 		// console.log('====================================', searchCity);
 		// Alert.alert('City Searched');
@@ -46,7 +44,10 @@ const Weather = () => {
 			</View>
 
 			<ScrollView>
-				<WeatherApi searchLat={searchLat} searchLong={searchLong} search={{searchLat , searchLong}} registerFunction={setChildFunction}/>
+				<WeatherApi searchLat={searchLat}
+					searchLong={searchLong}
+					triggerApi={triggerApi}
+				/>
 			</ScrollView>
 		</View>
 	);
